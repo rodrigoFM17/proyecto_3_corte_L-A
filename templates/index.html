@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT SUMA ROMANOS</title>
+</head>
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 80vh; background-color: rgb(73, 73, 73); color: #fff; font-family: 'Courier New', Courier, monospace; font-size: 20pt;">
+    <h1>Maquina de turing que sume numeros romanos</h1>
+
+    <form action="/" method="POST" style="display: flex; flex-direction: column; align-items: center; gap: 50px;">
+        {{ form.hidden_tag() }}
+
+        <div style="display: flex; gap: 50px;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                {{ form.number1.label }} <br>
+                {{ form.number1(size=20) }}
+                {% if form.number1.errors %}
+                    <ul>
+                    {% for error in form.number1.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+    
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                {{ form.operator.label }}<br>
+                {{ form.operator() }}
+            </div>
+    
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                {{ form.number2.label }} <br>
+                {{ form.number2(size=20) }}
+                {% if form.number2.errors %}
+                    <ul>
+                    {% for error in form.number2.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+
+        <div>
+            {{ form.operate() }}
+        </div>
+    </form>
+
+    {% if result %}
+        <h2>Resultado: {{ result }}</h2>
+    {% endif %}
+
+
+</body>
+
+</html>
