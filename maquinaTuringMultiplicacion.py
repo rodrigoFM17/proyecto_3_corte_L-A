@@ -7,11 +7,13 @@ class TuringMachineRomanMultiplication:
     
     # Función para convertir un símbolo romano en un conjunto de "I" en la cinta
     def expand_roman(self, symbol):
-        mapping = {"I": "I", "V": "IIIII", "X": "IIIIIIIIII", 
-                   "L": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",  # 50
-                   "C": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",  # 100
-                   "D": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",  # 500
-                   "M": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"}  # 1000
+        mapping = {"I": "I", 
+                   "V": "I" * 5, 
+                   "X": "I" * 10, 
+                   "L": "I" * 50,  # 50
+                   "C": "I" * 100,  # 100
+                   "D": "I" * 500,  # 500
+                   "M": "I" * 1000}  # 1000
         return list(mapping.get(symbol, ""))  # Devuelve la lista de "I"
 
     # Función principal que ejecuta la máquina de Turing
@@ -96,7 +98,7 @@ class TuringMachineRomanMultiplication:
         self.current_state = "HALT"  # Termina el programa
 
 # Ejemplo de uso
-input_tape = "V#III"  # Representa "3 * 3"
+input_tape = "XX#XX"  # Representa "3 * 3"
 turing_machine = TuringMachineRomanMultiplication(input_tape)
 result = turing_machine.run()
 print("Resultado de la multiplicación en números romanos:", result)

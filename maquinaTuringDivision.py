@@ -7,11 +7,15 @@ class TuringMachineRomanDivision:
     
     # Función para convertir un símbolo romano en un conjunto de "I" en la cinta
     def expand_roman(self, symbol):
-        mapping = {"I": "I", "V": "IIIII", "X": "IIIIIIIIII", 
-                   "L": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",  # 50
-                   "C": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",  # 100
-                   "D": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",  # 500
-                   "M": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"}  # 1000
+        mapping = {
+            "I": "I", 
+            "V": "I" * 5, 
+            "X": "I" * 10, 
+            "L": "I" * 50,  
+            "C": "I" * 100,  
+            "D": "I" * 500,  
+            "M": "I" * 1000  
+        }
         return list(mapping.get(symbol, ""))  # Devuelve la lista de "I"
 
     # Función principal que ejecuta la máquina de Turing
@@ -65,6 +69,7 @@ class TuringMachineRomanDivision:
         
         # Actualizamos la cinta con el cociente en forma de "I"
         self.tape = ["I"] * quotient_count
+        print("Cociente en 'I' antes de simplificar:", ''.join(self.tape))  # Depuración
         self.current_state = "SIMPLIFY"
     
     # Estado de Simplificación: Convierte "I" en V, V en X, etc., para notación romana correcta
@@ -76,36 +81,48 @@ class TuringMachineRomanDivision:
         while i_count >= 1000:
             self.tape.append("M")
             i_count -= 1000
+        while i_count >= 900:  # Manejo especial de CM
+            self.tape.append("CM")
+            i_count -= 900
         while i_count >= 500:
             self.tape.append("D")
             i_count -= 500
+        while i_count >= 400:  # Manejo especial de CD
+            self.tape.append("CD")
+            i_count -= 400
         while i_count >= 100:
             self.tape.append("C")
             i_count -= 100
+        while i_count >= 90:  # Manejo especial de XC
+            self.tape.append("XC")
+            i_count -= 90
         while i_count >= 50:
             self.tape.append("L")
             i_count -= 50
+        while i_count >= 40:  # Manejo especial de XL
+            self.tape.append("XL")
+            i_count -= 40
         while i_count >= 10:
             self.tape.append("X")
             i_count -= 10
+        while i_count >= 9:  # Manejo especial de IX
+            self.tape.append("IX")
+            i_count -= 9
         while i_count >= 5:
             self.tape.append("V")
             i_count -= 5
         while i_count >= 4:  # Manejo especial de IV
-            if i_count == 4:
-                self.tape.append("IV")
-                i_count -= 4
-            else:
-                self.tape.append("V")
-                i_count -= 5
+            self.tape.append("IV")
+            i_count -= 4
         while i_count >= 1:
             self.tape.append("I")
             i_count -= 1
 
+        print("Resultado simplificado:", ''.join(self.tape))  # Depuración final
         self.current_state = "HALT"  # Termina el programa
 
 # Ejemplo de uso
-input_tape = "XXX#V"  # Representa "10 / 2"
+input_tape = "CD#XX"  # Representa "400 / 20"
 turing_machine = TuringMachineRomanDivision(input_tape)
 result = turing_machine.run()
 print("Resultado de la división en números romanos:", result)
