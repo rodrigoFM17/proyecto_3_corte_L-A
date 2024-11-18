@@ -1,4 +1,4 @@
-#!/home/rodrigo/Documentos/UP/automatas/proyecto_2_corte_L-A/.venv/bin/python
+#!/home/rodrigo/Documentos/UP/automatas/proyecto_3_corte_L-A/.venv/bin/python3.13
 # -*- coding: utf-8 -*-
 import re
 import sys
